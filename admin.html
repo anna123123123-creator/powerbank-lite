@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>运营后台 · 共享充电宝租借系统（精简开源版）</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="brand">闪<span class="accent">充</span>宝 后台</div>
+      <div class="side-link active" data-view="dashboard">仪表盘</div>
+      <div class="side-link" data-view="stations">站点管理</div>
+      <div class="side-link" data-view="rentals">订单管理</div>
+      <div class="side-link" id="btnResetData" style="margin-top:20px;color:var(--red)">重置示例数据</div>
+      <a href="index.html" class="side-link">← 返回前台</a>
+    </aside>
+
+    <main class="admin-main">
+      <section id="view-dashboard" class="admin-view active">
+        <div class="page-head"><h1>仪表盘</h1><p>站点与订单概览。</p></div>
+        <div class="stat-grid" id="statGrid"></div>
+        <table>
+          <thead><tr><th>订单</th><th>借出站点</th><th>归还站点</th><th>状态</th><th>费用</th></tr></thead>
+          <tbody id="recentRentalsBody"></tbody>
+        </table>
+      </section>
+
+      <section id="view-stations" class="admin-view">
+        <div class="page-head"><h1>站点管理</h1><p>添加、编辑或删除充电宝站点。</p></div>
+        <div class="table-toolbar">
+          <span></span>
+          <button class="btn btn-primary btn-sm" id="btnAddStation">+ 新增站点</button>
+        </div>
+        <table>
+          <thead><tr><th>站点名称</th><th>位置</th><th>可借/总插槽</th><th>价格/小时</th><th>操作</th></tr></thead>
+          <tbody id="stationsBody"></tbody>
+        </table>
+      </section>
+
+      <section id="view-rentals" class="admin-view">
+        <div class="page-head"><h1>订单管理</h1><p>查看全部借出与归还订单。</p></div>
+        <div class="table-toolbar">
+          <div class="filter-row" id="rentalFilters">
+            <button class="filter-btn active" data-status="all">全部</button>
+            <button class="filter-btn" data-status="active">进行中</button>
+            <button class="filter-btn" data-status="completed">已完成</button>
+          </div>
+        </div>
+        <table>
+          <thead><tr><th>订单号</th><th>手机号</th><th>借出站点</th><th>归还站点</th><th>借出时间</th><th>归还时间</th><th>状态</th><th>费用</th></tr></thead>
+          <tbody id="rentalsBody"></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="stationModalBackdrop">
+    <div class="modal">
+      <button class="modal-close" id="btnCloseStationModal">&times;</button>
+      <h2 id="stationModalTitle">新增站点</h2>
+      <div id="stationModalMsg"></div>
+      <form id="stationForm" novalidate>
+        <input type="hidden" id="stationIdInput">
+        <div class="field"><label>站点名称</label><input id="stationNameInput" type="text" required></div>
+        <div class="field"><label>位置</label><input id="stationLocationInput" type="text" required></div>
+        <div class="field-row">
+          <div class="field"><label>总插槽数</label><input id="stationTotalInput" type="number" min="1" required></div>
+          <div class="field"><label>当前可借数</label><input id="stationAvailInput" type="number" min="0" required></div>
+        </div>
+        <div class="field"><label>价格/小时（元）</label><input id="stationPriceInput" type="number" min="0" step="0.5" required></div>
+        <button type="submit" class="btn btn-primary btn-block">保存</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

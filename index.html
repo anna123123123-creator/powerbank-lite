@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>共享充电宝租借系统（精简开源版）</title>
+<meta name="description" content="免费开源的共享充电宝租借管理系统精简版：站点浏览、扫码借出、异地归还、按小时计费，后台站点与订单管理，真实增删改查功能，纯前端+localStorage实现，可作为学习或二次开发起点。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">闪<span class="accent">充</span>宝</div>
+    <a href="admin.html" class="nav-link">进入运营后台 →</a>
+  </header>
+
+  <main class="container">
+    <div class="page-head">
+      <h1>附近的充电宝站点</h1>
+      <p>选择一个还有余量的站点借出充电宝，用完后在任意站点归还，按小时计费、不足一小时按一小时算。这是一个真实可用的精简开源系统，数据保存在你浏览器本地。</p>
+    </div>
+
+    <div class="tab-row">
+      <button class="tab-btn active" id="tabBorrow">借出充电宝</button>
+      <button class="tab-btn" id="tabReturn">归还充电宝</button>
+    </div>
+
+    <section id="panelBorrow">
+      <div id="stationGrid" class="prop-grid"></div>
+    </section>
+
+    <section id="panelReturn" style="display:none">
+      <div class="lookup-box">
+        <div class="field">
+          <label>手机号</label>
+          <input id="lookupPhoneInput" type="text" placeholder="输入借出时填写的手机号，查询进行中的订单">
+        </div>
+        <button class="btn btn-primary" id="btnLookup">查询</button>
+      </div>
+      <div id="lookupMsg"></div>
+      <div id="activeRentalList" class="rental-list"></div>
+    </section>
+  </main>
+
+  <!-- Borrow modal -->
+  <div class="modal-backdrop" id="borrowModalBackdrop">
+    <div class="modal">
+      <button class="modal-close" id="btnCloseBorrowModal">&times;</button>
+      <h2 id="borrowStationName"></h2>
+      <p class="sub" id="borrowStationInfo"></p>
+      <div id="borrowMsg"></div>
+      <form id="borrowForm" novalidate>
+        <div class="field">
+          <label>手机号</label>
+          <input id="borrowPhoneInput" type="text" required placeholder="用于识别你的借出订单">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">确认借出</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Return modal -->
+  <div class="modal-backdrop" id="returnModalBackdrop">
+    <div class="modal">
+      <button class="modal-close" id="btnCloseReturnModal">&times;</button>
+      <h2>归还充电宝</h2>
+      <p class="sub" id="returnRentalInfo"></p>
+      <div id="returnMsg"></div>
+      <form id="returnForm" novalidate>
+        <div class="field">
+          <label>归还站点</label>
+          <select id="returnStationSelect" required></select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">确认归还</button>
+      </form>
+      <div id="returnResult"></div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
